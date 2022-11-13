@@ -1,0 +1,57 @@
+<body  class=" vh-100 bg-dark">
+<div>
+
+
+<div class="container-sm container   ">
+  <div class="d-flex justify-content-center">
+    
+    <div class="container-sm  mx-auto bg-light  mt-5 pt-5 pb-0">
+<div class="d-flex gap-2">
+
+  <input type="text" name="" [(ngModel)]="task" (keyup.enter)="save()" id="" class="form form-control ">
+  <button type="button" class="btn btn-success text-capitalize  ms-auto block" (click)="save()">  Add </button>
+
+</div>
+      <div class="d-flex  align-content-start mt-4 ms-2 ">
+        <div class="after d-flex flex-column   flex-sm-row gap-lg-5 gap-2">
+
+          <a>All</a>
+          <a>completed</a>
+          <a>pending</a>
+        </div>
+        <button type="button" class="btn align-self-end btn-danger ms-auto  text-capitalize  " (click)="show()"> Clear  All</button>
+      </div>
+      <hr class="bg-dark">
+   
+
+    </div>
+    
+  </div>
+  <div class="bg-light  px-md-5 p-0 " name="todo">
+    <table class="table  table-hover table-bordered  text-daek text-center ">
+
+      <thead class="">
+      <tr>
+      
+      <th> </th>
+        <th>Task</th>
+        <th> </th>
+        
+      </tr>
+      
+      </thead>
+      <tbody>
+      <tr *ngFor="let t of todo.entries()">
+      <td><input type="checkbox" name="" id=""></td>
+      <td ><p class="text-md-center text-justify">
+      
+{{t[1].task}}   </p></td>
+      <td><button class="btn btn-danger" (click)="delete(t)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+      
+      </tr>
+      
+      </tbody>
+      </table>
+  </div>
+</div>
+</div></body>
