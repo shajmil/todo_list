@@ -15,9 +15,9 @@
       <div class="d-flex  align-content-start mt-4 ms-2 ">
         <div class="after d-flex flex-column   flex-sm-row gap-lg-5 gap-2">
 
-          <a (click)="allchange()" >All</a>
-          <a (click)="cmpchange()" >completed</a>
-          <a (click)="penchange()">pending</a>
+          <a (click)="allchange()" [ngStyle]="{'color':al?'blue':'black'}" >All</a>
+          <a (click)="cmpchange()"  [ngStyle]="{'color':compl?'blue':'black'}">completed</a>
+          <a (click)="penchange()"  [ngStyle]="{'color':pen?'blue':'black'}">pending</a>
         </div>
         <button type="button" class="btn align-self-end btn-danger ms-auto  text-capitalize "(click)="all() "> Clear  All</button>
       </div>
@@ -29,7 +29,7 @@
   </div>
 
 
-  <div class="bg-light  px-md-5 p-0 " *ngIf="al" name="todo">
+  <div class="bg-light  px-md-5 p-0 " *ngIf="al " name="todo">
     <table class="table  table-hover table-bordered  text-daek text-center ">
 
       <thead class="">
@@ -44,7 +44,8 @@
       </thead>
       <tbody  *ngFor="let t of todo;let i = index">
       <tr>
-      <td><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
+      <td *ngIf="t.status==1"><input type="checkbox" name="" id="check" (change)="check(t)"  checked="true" ></td>
+      <td *ngIf="t.status==0"><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
       <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
       
 {{t.task}}  </p></td>
@@ -57,11 +58,11 @@
   </div>
 
 
-  <div class="bg-light  px-md-5 p-0 " *ngIf="compl" name="todo">
+  <div class="bg-light  px-md-5 p-0 " *ngIf="compl " name="todo">
     <table class="table  table-hover table-bordered  text-daek text-center ">
 
-      <thead class="">
-      <tr>
+      <thead class="" class="">
+      <tr *ngIf="this.i==1">
       
       <th> </th>
         <th>Task</th>
@@ -70,10 +71,10 @@
       </tr>
  
       </thead>
-      <tbody  >
-      <tr  *ngFor="let t of todo;let i = index">
+      <tbody  *ngFor="let t of todo;  "  >
+      <tr *ngIf="t.status==1  ">
         
-      <td><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
+      <td><input type="checkbox" name="" id="check" (change)="check(t)"  checked="true"></td>
       <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
       
 {{t.task}}  </p></td>
@@ -87,21 +88,21 @@
 
 
 
-  <div class="bg-light  px-md-5 p-0 " *ngIf="pen" name="todo">
+  <div class="bg-light  px-md-5 p-0 " *ngIf="pen " name="todo">
     <table class="table  table-hover table-bordered  text-daek text-center ">
 
-      <thead class="">
-      <tr>
+      <thead  class="">
+      <tr  >
       
       <th> </th>
-        <th>Task</th>
+        <th >Task</th>
         <th> </th>
         
       </tr>
       
       </thead>
       <tbody  *ngFor="let t of todo;let i = index">
-      <tr >
+      <tr *ngIf="t.status==0">
       <td><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
       <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
       

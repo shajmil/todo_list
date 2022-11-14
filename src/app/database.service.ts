@@ -7,11 +7,11 @@ export class DatabaseService {
   show(){
     this.save();
   }
-id=0
+id:any=localStorage.getItem('id')
 task:any
 status:any
 
-  todo:any=[
+  todo:any=[]
    
   //  {
   //     "id":"1","task":"reading book","status":0
@@ -22,7 +22,7 @@ status:any
   //   {
   //     "id":3,"task":"study","status":0
   //   },
-   ]
+   
 
    clearAll(){
     this.todo.length=0;
@@ -34,6 +34,9 @@ save(){
  if(this.todo){
   localStorage.setItem('todo',JSON.stringify( this.todo ));
  }
+ if(this.id){
+  localStorage.setItem('id',this.id );
+ }
  
 
 
@@ -41,8 +44,10 @@ save(){
 
 complete(id:any){
   var index = this.todo.findIndex((a: { id: any; }) => a.id === id)
+  console.log('index: ', index);
 this.status = this.todo[index].status ==0?1:0;
 this.todo[index].status=this.status
+console.log('this.todo[index].status: ', this.todo[index]);
 this.save();
 console.log(this.todo);
 }
@@ -73,22 +78,30 @@ else{
 }  }
 get(){
   if(this.todo){
+   
 console.log(localStorage.getItem('todo')||' ');
-    this.todo= JSON.parse(localStorage.getItem('todo')||' ')
+    this.todo= JSON.parse(localStorage.getItem('todo')||'[]' )
+   
+  }
+  if(this.id){
+// console.log(localStorage.getItem('todo')||' ');
+    this.id= (localStorage.getItem('id')||' ')
    
   }
 }
 remove(t:any){
 
-console.log('index: ', t);
+console.log
+('index: ', t);
 this.todo.splice(this.todo.findIndex((a: { id: any; }) => a.id === t) , 1)
 // this.todo.splice(t,1)
 this.save()
 }
 
   constructor() { 
-    this.save()
+// this.save()
     this.get()
     // alert('hi')
+    console.log(this.id);
   }
 }
