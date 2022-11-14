@@ -7,7 +7,7 @@ export class DatabaseService {
   show(){
     this.save();
   }
-id=4
+id=0
 task:any
 status:any
 
@@ -24,6 +24,11 @@ status:any
   //   },
    ]
 
+   clearAll(){
+    this.todo.length=0;
+    this.id=0;
+    this.save();
+   }
 save(){
 
  if(this.todo){
@@ -33,6 +38,15 @@ save(){
 
 
 }
+
+complete(id:any){
+  var index = this.todo.findIndex((a: { id: any; }) => a.id === id)
+this.status = this.todo[index].status ==0?1:0;
+this.todo[index].status=this.status
+this.save();
+console.log(this.todo);
+}
+
 add(task:any){
   task=task.trim()
   if(task.length>0){
@@ -47,9 +61,9 @@ var data=this.todo
 
 data.push(
   {
-    id,task,status:this.status
-  })
-  // console.log('data: ', data);
+    id,task,status:0  })
+    console.log(data);
+ data.map((i: { id: any; })=>console.log(i));
 
 this.save()
 return true
@@ -65,8 +79,10 @@ console.log(localStorage.getItem('todo')||' ');
   }
 }
 remove(t:any){
-var index =t[0]
-this.todo.splice(index,1)
+
+console.log('index: ', t);
+this.todo.splice(this.todo.findIndex((a: { id: any; }) => a.id === t) , 1)
+// this.todo.splice(t,1)
 this.save()
 }
 

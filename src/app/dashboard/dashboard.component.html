@@ -1,4 +1,4 @@
-<body  class=" vh-100 bg-dark">
+<body  class=" bg-dark">
 <div>
 
 
@@ -19,7 +19,7 @@
           <a>completed</a>
           <a>pending</a>
         </div>
-        <button type="button" class="btn align-self-end btn-danger ms-auto  text-capitalize  " (click)="show()"> Clear  All</button>
+        <button type="button" class="btn align-self-end btn-danger ms-auto  text-capitalize "(click)="all() "> Clear  All</button>
       </div>
       <hr class="bg-dark">
    
@@ -41,11 +41,11 @@
       
       </thead>
       <tbody>
-      <tr *ngFor="let t of todo.entries()">
-      <td><input type="checkbox" name="" id=""></td>
-      <td ><p class="text-md-center text-justify">
+      <tr *ngFor="let t of todo;let i = index">
+      <td><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
+      <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
       
-{{t[1].task}}   </p></td>
+{{t.task}}  </p></td>
       <td><button class="btn btn-danger" (click)="delete(t)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
       
       </tr>

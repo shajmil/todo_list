@@ -7,20 +7,30 @@ import { DatabaseService } from '../database.service';
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
+  
 todo:any
 task:any
+ 
   constructor(private ds:DatabaseService) {
     
     this.todo= this.ds.todo
+  
    }
 
   ngOnInit(): void {
   }
-show(){
- 
+// show(t:any){console.log(t)};
+
+all(){
+  this.ds.clearAll();
+}
+check(t:any){
+this.ds.complete(t.id)
+  // console.log(t.id);
 }
 delete(t:any){
-this.ds.remove(t)
+  
+this.ds.remove(t.id)
 }
 save(){
   
