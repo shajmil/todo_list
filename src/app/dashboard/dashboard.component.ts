@@ -10,6 +10,9 @@ export class DashboardComponent implements OnInit {
   
 todo:any
 task:any
+al:any=true
+compl:any=false
+pen:any=false
  
   constructor(private ds:DatabaseService) {
     
@@ -38,5 +41,26 @@ save(){
   this.task=' '
   // result?alert('sucesss'):alert('please fill todo list')
 }
+
+
+allchange(){
+  this.al=true;
+  this.compl=false;
+  this.pen=false
+}
+
+
+cmpchange(){
+  this.al=false;
+  this.compl=true;
+  this.pen=false
+}
+
+penchange(){
+  this.al=false;
+  this.compl=false;
+  this.pen=true
+}
+
 
 }
