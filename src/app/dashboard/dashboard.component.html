@@ -10,7 +10,7 @@
 
   <input type="text" name="" [(ngModel)]="task" (keyup.enter)="save()" id="input" class="form form-control ">
   <button type="button" class="btn btn-success text-capitalize  ms-auto block" *ngIf="editable==false" (click)="save()">  Add </button>
-  <button type="button" class="btn btn-success text-capitalize  ms-auto block" *ngIf="editable==true" (click)="uptd()">  update </button>
+  <button type="button" class="btn btn-primary text-capitalize  ms-auto block" *ngIf="editable==true" (click)="uptd()">  update </button>
 
 </div>
       <div class="d-flex  align-content-start mt-4 ms-2 ">
