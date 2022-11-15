@@ -44,13 +44,38 @@ save(){
 
 complete(id:any){
   var index = this.todo.findIndex((a: { id: any; }) => a.id === id)
-  console.log('index: ', index);
+  // console.log('index: ', index);
 this.status = this.todo[index].status ==0?1:0;
 this.todo[index].status=this.status
-console.log('this.todo[index].status: ', this.todo[index]);
+// console.log('this.todo[index].status: ', this.todo[index]);
 this.save();
-console.log(this.todo);
+// console.log(this.todo);
 }
+
+update(id:any,task:any,status:any,index:any){
+  task=task.trim()
+  if(task.length>0){
+
+
+  // console.log('task: ', task);
+
+
+// console.log('status: ', status);
+var data=this.todo
+// console.log(id);
+
+data[index]=
+  {
+    id,task,status }
+    // console.log(data);
+//  data.map((i: { id: any; })=>console.log(i));
+
+this.save()
+return true
+}
+else{
+  return false
+}  }
 
 add(task:any){
   task=task.trim()
@@ -67,8 +92,8 @@ var data=this.todo
 data.push(
   {
     id,task,status:0  })
-    console.log(data);
- data.map((i: { id: any; })=>console.log(i));
+    // console.log(data);
+//  data.map((i: { id: any; })=>console.log(i));
 
 this.save()
 return true
@@ -79,7 +104,7 @@ else{
 get(){
   if(this.todo){
    
-console.log(localStorage.getItem('todo')||' ');
+// console.log(localStorage.getItem('todo')||' ');
     this.todo= JSON.parse(localStorage.getItem('todo')||'[]' )
    
   }
@@ -91,8 +116,8 @@ console.log(localStorage.getItem('todo')||' ');
 }
 remove(t:any){
 
-console.log
-('index: ', t);
+// console.log
+// ('index: ', t);
 this.todo.splice(this.todo.findIndex((a: { id: any; }) => a.id === t) , 1)
 // this.todo.splice(t,1)
 this.save()
@@ -102,6 +127,6 @@ this.save()
 // this.save()
     this.get()
     // alert('hi')
-    console.log(this.id);
+    // console.log(this.id);
   }
 }
