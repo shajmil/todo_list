@@ -1,0 +1,36 @@
+#heading{
+    font-size: 58px;
+    font-weight: 800;
+    // font-style: ;
+}
+
+
+h1{
+
+    font-family: 'Montserrat', sans-serif;
+}
+.img{
+    height: 600px;
+// margin-left: -42px;
+// width: 100%;
+}
+.img2{
+z-index: 100;
+
+
+}
+.img3{
+    transform:
+    perspective(900px)
+    rotateX(51deg)
+    scale(0.7);
+  box-shadow: 0px 20px 100px rgba(49, 49, 49, 0.479);
+  transition:0.5s ease all;
+// left: 20%;   
+height: 120px;
+bottom: 1%;
+width: 350px;
+border-radius: 65%;
+background-color:rgba(0, 0, 0, 0.76) !important;
+z-index: 0;
+}

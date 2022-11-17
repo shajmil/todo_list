@@ -1,11 +1,11 @@
-<body  class=" bg-dark">
-<div>
+<body  class="vh-100 bg-dark">
+ <div class="bg-dark pb-5">
 
 
-<div class="container-sm container   ">
+<div class="container-sm container    ">
   <div class="d-flex justify-content-center">
     
-    <div class="container-sm  mx-auto bg-light  mt-5 pt-5 pb-0">
+    <div class="container-sm  bordTop mx-auto bg-light  mt-5 pt-5 pb-0">
 <div class="d-flex gap-2">
 
   <input type="text" name="" [(ngModel)]="task" (keyup.enter)="save()" id="input" class="form form-control ">
@@ -30,7 +30,7 @@
   </div>
 
 
-  <div class="bg-light  px-md-5 p-0 " *ngIf="al " name="todo">
+  <div class="bg-light bordDwn px-md-5 p-0 " *ngIf="al " name="todo">
     <table class="table  table-hover table-bordered  text-daek text-center ">
 
       <thead class="">
@@ -120,4 +120,8 @@
       </table>
   </div>
 </div>
-</div></body>
+</div>
+
+
+
+</body>
