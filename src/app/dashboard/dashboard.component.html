@@ -8,7 +8,8 @@
     <div class="container-sm  bordTop mx-auto bg-light  mt-5 pt-5 pb-0">
 <div class="d-flex gap-2">
 
-  <input type="text" name="" [(ngModel)]="task" (keyup.enter)="save()" id="input" class="form form-control ">
+  <input type="text" name="" [(ngModel)]="task" *ngIf="editable==true"  (keyup.enter)="uptd()" id="input" class="form form-control ">
+  <input type="text" name="" [(ngModel)]="task" *ngIf="editable==false"  (keyup.enter)="save()" id="input" class="form form-control ">
   <button type="button" class="btn btn-success text-capitalize  ms-auto block" *ngIf="editable==false" (click)="save()">  Add </button>
   <button type="button" class="btn btn-primary text-capitalize  ms-auto block" *ngIf="editable==true" (click)="uptd()">  update </button>
 
