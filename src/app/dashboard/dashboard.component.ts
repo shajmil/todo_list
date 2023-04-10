@@ -19,9 +19,9 @@ compl:any=false
 pen:any=false
 view:any=false
  
-  constructor( ) {
+  constructor(private ds:DatabaseService) {
     
-    // this.todo= this..todo
+    this.todo= this.ds.todo
   // console.log(this.todo);
    }
 
@@ -30,20 +30,20 @@ view:any=false
 // show(t:any){console.log(t)};
 
 all(){
-  // this..clearAll();
+  this.ds.clearAll();
 }
 check(t:any){
-// this..complete(t.id)
+this.ds.complete(t.id)
 this.i=1
   // console.log(t.id);
 }
 delete(t:any){
   
-// this..remove(t.id)
+this.ds.remove(t.id)
 }
 save(){
   
-  // let result=this..add(this.task)
+  let result=this.ds.add(this.task)
   this.view=true;
   this.task=' '
   // result?alert('sucesss'):alert('please fill todo list')
@@ -69,7 +69,7 @@ update(t:any){
   // console.log(input);
 }
 uptd(){
-  // this..update(this.id,this.task,this.st,this.index);
+  this.ds.update(this.id,this.task,this.st,this.index);
   this.task=' '
   this.editable=false
 }
