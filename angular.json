@@ -6,7 +6,7 @@
     "todo": {
       "projectType": "application",
       "schematics": {
-        "@schematics/angular:component": {
+        "@ngrx/schematics:component": {
           "style": "scss"
         }
       },
@@ -112,6 +112,11 @@
     }
   },
   "cli": {
-    "analytics": "2621c34e-6054-4942-9fa8-63e20bc5e0e8"
+    "analytics": "2621c34e-6054-4942-9fa8-63e20bc5e0e8",
+    "defaultCollection": "@ngrx/schematics",
+    "schematicCollections": [
+      "@ngrx/schematics",
+      "@ngrx/schematics"
+    ]
   }
 }

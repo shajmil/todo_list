@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { AppState } from '../store/todoReducer';
+import { Store } from '@ngrx/store';
+import { createTodo } from '../store/todo.action';
+import { todo } from '../model/store.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +23,7 @@ compl:any=false
 pen:any=false
 view:any=false
  
-  constructor(private ds:DatabaseService) {
+  constructor(private ds:DatabaseService, private store: Store<AppState>) {
     
     this.todo= this.ds.todo
   // console.log(this.todo);
@@ -44,8 +48,11 @@ this.ds.remove(t.id)
 save(){
   
   let result=this.ds.add(this.task)
+  const todo:todo =this.task
+  this.store.dispatch(createTodo({todo}));
   this.view=true;
   this.task=' '
+
   // result?alert('sucesss'):alert('please fill todo list')
 }
 

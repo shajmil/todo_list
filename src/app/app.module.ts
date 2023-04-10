@@ -25,6 +25,8 @@ import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LandingComponent } from './landing/landing.component';
+import { StoreModule, Store } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,12 @@ import { LandingComponent } from './landing/landing.component';
     MdbTooltipModule,
     MdbValidationModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+  
+    StoreModule.forRoot(reducers, {
+      metaReducers
+    }),
+
   ],
   providers: [],
   bootstrap: [AppComponent]
