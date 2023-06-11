@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DatabaseService } from '../database.service';
+import { Store, select } from '@ngrx/store';
+import { AppState, Todo } from '../reducers';
+import { AddTodo } from './todo.actions';
+import { getTodos } from '../get-todo.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,11 +23,22 @@ al:any=true
 compl:any=false
 pen:any=false
 view:any=false
- 
-  constructor(private ds:DatabaseService) {
-    
-    this.todo= this.ds.todo
-  // console.log(this.todo);
+todos$: Observable<Todo[]>;
+  constructor(private ds:DatabaseService, private store:Store<AppState>) {
+    this.todos$ = this.store.pipe(select(getTodos));
+    console.log(' this.todos$: ',  this.todos$);
+    this.todos$.subscribe(todos => {
+      // Access the value of this.todos$ here
+      console.log(todos);
+    });
+    this.store.subscribe(res=>{
+      console.log('res: ', res);
+      this.todo=res['todos']
+
+
+    })
+    // this.todo = this.ds.todo
+  console.log(this.todo);
    }
 
   ngOnInit(): void {
@@ -42,7 +58,7 @@ delete(t:any){
 this.ds.remove(t.id)
 }
 save(){
-  
+  // this.store.dispatch(new AddTodo(this.task))
   let result=this.ds.add(this.task)
   this.view=true;
   this.task=' '

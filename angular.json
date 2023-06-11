@@ -34,9 +34,8 @@
             ],
             "scripts": [
               "src/assets/js/nav.js"
-          
             ],
-            "preserveSymlinks": true 
+            "preserveSymlinks": true
           },
           "configurations": {
             "production": {
@@ -111,6 +110,10 @@
     }
   },
   "cli": {
-    "analytics": "2621c34e-6054-4942-9fa8-63e20bc5e0e8"
+    "analytics": "2621c34e-6054-4942-9fa8-63e20bc5e0e8",
+    "schematicCollections": [
+      "@ngrx/schematics",
+      "@ngrx/schematics"
+    ]
   }
 }

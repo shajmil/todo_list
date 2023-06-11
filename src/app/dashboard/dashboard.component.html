@@ -1,128 +1,193 @@
-<body  class="vh-100 bg-dark">
- <div class="bg-dark pb-5">
-
-
-<div class="container-sm container    ">
-  <div class="d-flex justify-content-center">
-    
-    <div class="container-sm  bordTop mx-auto bg-light  mt-5 pt-5 pb-0">
-<div class="d-flex gap-2">
-
-  <input type="text" name="" [(ngModel)]="task" *ngIf="editable==true"  (keyup.enter)="uptd()" id="input" class="form form-control ">
-  <input type="text" name="" [(ngModel)]="task" *ngIf="editable==false"  (keyup.enter)="save()" id="input" class="form form-control ">
-  <button type="button" class="btn btn-success text-capitalize  ms-auto block" *ngIf="editable==false" (click)="save()">  Add </button>
-  <button type="button" class="btn btn-primary text-capitalize  ms-auto block" *ngIf="editable==true" (click)="uptd()">  update </button>
-
-</div>
-      <div class="d-flex  align-content-start mt-4 ms-2 ">
-        <div class="after d-flex flex-column   flex-sm-row gap-lg-5 gap-2">
-
-          <a (click)="allchange()" [ngStyle]="{'color':al?'blue':'black'}" >All</a>
-          <a (click)="cmpchange()"  [ngStyle]="{'color':compl?'blue':'black'}">completed</a>
-          <a (click)="penchange()"  [ngStyle]="{'color':pen?'blue':'black'}">pending</a>
+<body class="vh-100 bg-dark">
+  <div class="bg-dark pb-5">
+    <div class="container-sm container">
+      <div class="d-flex justify-content-center">
+        <div class="container-sm bordTop mx-auto bg-light mt-5 pt-5 pb-0">
+          <div class="d-flex gap-2">
+            <input
+              type="text"
+              name=""
+              [(ngModel)]="task"
+              *ngIf="editable == true"
+              (keyup.enter)="uptd()"
+              id="input"
+              class="form form-control"
+            />
+            <input
+              type="text"
+              name=""
+              [(ngModel)]="task"
+              *ngIf="editable == false"
+              (keyup.enter)="save()"
+              id="input"
+              class="form form-control"
+            />
+            <button
+              type="button"
+              class="btn btn-success text-capitalize ms-auto block"
+              *ngIf="editable == false"
+              (click)="save()"
+            >
+              Add
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary text-capitalize ms-auto block"
+              *ngIf="editable == true"
+              (click)="uptd()"
+            >
+              update
+            </button>
+          </div>
+          <div class="d-flex align-content-start mt-4 ms-2">
+            <div class="after d-flex flex-column flex-sm-row gap-lg-5 gap-2">
+              <a
+                (click)="allchange()"
+                [ngStyle]="{ color: al ? 'blue' : 'black' }"
+                >All</a
+              >
+              <a
+                (click)="cmpchange()"
+                [ngStyle]="{ color: compl ? 'blue' : 'black' }"
+                >completed</a
+              >
+              <a
+                (click)="penchange()"
+                [ngStyle]="{ color: pen ? 'blue' : 'black' }"
+                >pending</a
+              >
+            </div>
+            <button
+              type="button"
+              class="btn align-self-end btn-danger ms-auto text-capitalize"
+              (click)="all()"
+            >
+              Clear All
+            </button>
+          </div>
+          <hr class="bg-dark" />
         </div>
-        <button type="button" class="btn align-self-end btn-danger ms-auto  text-capitalize "(click)="all() "> Clear  All</button>
       </div>
-      <hr class="bg-dark">
-   
 
+      <div class="bg-light bordDwn px-md-5 p-0" *ngIf="al" name="todo">
+        <table class="table table-hover table-bordered text-daek text-center">
+          <thead class="">
+            <tr>
+              <th></th>
+              <th>Task</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let t of todo; let i = index">
+            <tr>
+              <td *ngIf="t.status == 1">
+                <input
+                  type="checkbox"
+                  name=""
+                  id="check"
+                  (change)="check(t)"
+                  checked="true"
+                />
+              </td>
+              <td *ngIf="t.status == 0">
+                <input type="checkbox" name="" id="check" (change)="check(t)" />
+              </td>
+              <td>
+                <p
+                  class="text-md-center text-justify"
+                  [ngStyle]="{
+                    'text-decoration': t.status == 1 ? 'line-through' : 'none'
+                  }"
+                >
+                  {{ t.task }}
+                </p>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="delete(t)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+                <button class="btn btn-primary ms-2" (click)="update(t)">
+                  <i class="fa fa-pen" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-light px-md-5 p-0" *ngIf="compl" name="todo">
+        <table class="table table-hover table-bordered text-daek text-center">
+          <thead class="" class="">
+            <tr *ngIf="this.i == 1">
+              <th></th>
+              <th>Task</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let t of todo">
+            <tr *ngIf="t.status == 1">
+              <td>
+                <input
+                  type="checkbox"
+                  name=""
+                  id="check"
+                  (change)="check(t)"
+                  checked="true"
+                />
+              </td>
+              <td>
+                <p
+                  class="text-md-center text-justify"
+                  [ngStyle]="{
+                    'text-decoration': t.status == 1 ? 'line-through' : 'none'
+                  }"
+                >
+                  {{ t.task }}
+                </p>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="delete(t)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="bg-light px-md-5 p-0" *ngIf="pen" name="todo">
+        <table class="table table-hover table-bordered text-daek text-center">
+          <thead class="">
+            <tr>
+              <th></th>
+              <th>Task</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody *ngFor="let t of todo; let i = index">
+            <tr *ngIf="t.status == 0">
+              <td>
+                <input type="checkbox" name="" id="check" (change)="check(t)" />
+              </td>
+              <td>
+                <p
+                  class="text-md-center text-justify"
+                  [ngStyle]="{
+                    'text-decoration': t.status == 1 ? 'line-through' : 'none'
+                  }"
+                >
+                  {{ t.task }}
+                </p>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="delete(t)">
+                  <i class="fa fa-trash" aria-hidden="true"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    
   </div>
-
-
-  <div class="bg-light bordDwn px-md-5 p-0 " *ngIf="al " name="todo">
-    <table class="table  table-hover table-bordered  text-daek text-center ">
-
-      <thead class="">
-      <tr>
-      
-      <th> </th>
-        <th>Task</th>
-        <th> </th>
-        
-      </tr>
-      
-      </thead>
-      <tbody  *ngFor="let t of todo;let i = index">
-      <tr>
-      <td *ngIf="t.status==1"><input type="checkbox" name="" id="check" (change)="check(t)"  checked="true" ></td>
-      <td *ngIf="t.status==0" ><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
-      <td ><p  class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
-      
-{{t.task}}  </p></td>
-      <td><button class="btn btn-danger" (click)="delete(t)"><i class="fa fa-trash" aria-hidden="true"></i></button>        <button class="btn btn-primary ms-2" (click)="update(t)"><i class="fa fa-pen " aria-hidden="true"></i></button>
-      </td>
-      
-      </tr>
-      
-      </tbody>
-      </table>
-  </div>
-
-
-  <div class="bg-light  px-md-5 p-0 " *ngIf="compl " name="todo">
-    <table class="table  table-hover table-bordered  text-daek text-center ">
-
-      <thead class="" class="">
-      <tr *ngIf="this.i==1">
-      
-      <th> </th>
-        <th>Task</th>
-        <th> </th>
-        
-      </tr>
- 
-      </thead>
-      <tbody  *ngFor="let t of todo;  "  >
-      <tr *ngIf="t.status==1  ">
-        
-      <td><input type="checkbox" name="" id="check" (change)="check(t)"  checked="true"></td>
-      <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
-      
-{{t.task}}  </p></td>
-      <td><button class="btn btn-danger" (click)="delete(t)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
-      
-      </tr>
-      
-      </tbody>
-      </table>
-  </div>
-
-
-
-  <div class="bg-light  px-md-5 p-0 " *ngIf="pen " name="todo">
-    <table class="table  table-hover table-bordered  text-daek text-center ">
-
-      <thead  class="">
-      <tr  >
-      
-      <th> </th>
-        <th>  Task</th>
-        <th> </th>
-        
-      </tr>
-      
-      </thead>
-      <tbody  *ngFor="let t of todo;let i = index">
-      <tr *ngIf="t.status==0">
-      <td><input type="checkbox" name="" id="check" (change)="check(t)" ></td>
-      <td ><p class="text-md-center text-justify" [ngStyle]="{'text-decoration':t.status==1?'line-through':'none'}">
-      
-{{t.task}}  </p></td>
-      <td>
-        <button class="btn btn-danger" (click)="delete(t)"><i class="fa fa-trash" aria-hidden="true"></i></button>
-      </td>
-      
-      </tr>
-  
-      
-      </tbody>
-      </table>
-  </div>
-</div>
-</div>
-
-
-
 </body>

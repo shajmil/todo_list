@@ -1,132 +1,103 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import { AppState } from './reducers';
+import { Store } from '@ngrx/store';
+import { AddTodo, DeleteTodo } from './dashboard/todo.actions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DatabaseService {
-  show(){
+export class DatabaseService implements OnInit {
+  constructor(private store: Store<AppState>) {}
+
+  id: any = localStorage.getItem('id');
+  task: any;
+  status: any;
+  todo: any[] = [];
+
+  ngOnInit() {
+    this.get();console.log('sa');
+  }
+
+  show() {
     this.save();
   }
-id:any=localStorage.getItem('id')
-task:any
-status:any
 
-  todo:any=[]
-   
-  //  {
-  //     "id":"1","task":"reading book","status":0
-  //   },
-  //  {
-  //     "id":2,"task":"cleaning","status":1
-  //   },
-  //   {
-  //     "id":3,"task":"study","status":0
-  //   },
-   
-
-   clearAll(){
-    this.todo.length=0;
-    this.id=0;
+  clearAll() {
+    this.todo.length = 0;
+    this.id = 0;
+    localStorage.clear()
     this.save();
-   }
-save(){
-
- if(this.todo){
-  localStorage.setItem('todo',JSON.stringify( this.todo ));
- }
- if(this.id){
-  localStorage.setItem('id',this.id );
- }
- 
-
-
-}
-
-complete(id:any){
-  var index = this.todo.findIndex((a: { id: any; }) => a.id === id)
-  // console.log('index: ', index);
-this.status = this.todo[index].status ==0?1:0;
-this.todo[index].status=this.status
-// console.log('this.todo[index].status: ', this.todo[index]);
-this.save();
-// console.log(this.todo);
-}
-
-update(id:any,task:any,status:any,index:any){
-  task=task.trim()
-  if(task.length>0){
-
-
-  // console.log('task: ', task);
-
-
-// console.log('status: ', status);
-var data=this.todo
-// console.log(id);
-
-data[index]=
-  {
-    id,task,status }
-    // console.log(data);
-//  data.map((i: { id: any; })=>console.log(i));
-
-this.save()
-return true
-}
-else{
-  return false
-}  }
-
-add(task:any){
-  task=task.trim()
-  if(task.length>0){
-
-
-  // console.log('task: ', task);
-var id = this.id++
-this.status=0
-// console.log('status: ', status);
-var data=this.todo
-// console.log(id);
-
-data.push(
-  {
-    id,task,status:0  })
-    // console.log(data);
-//  data.map((i: { id: any; })=>console.log(i));
-
-this.save()
-return true
-}
-else{
-  return false
-}  }
-get(){
-  if(this.todo){
-   
-// console.log(localStorage.getItem('todo')||' ');
-    this.todo= JSON.parse(localStorage.getItem('todo')||'[]' )
-   
   }
-  if(this.id){
-// console.log(localStorage.getItem('todo')||' ');
-    this.id= (localStorage.getItem('id')||' ')
-   
+
+  save() {
+    if (this.todo) {
+      // localStorage.setItem('todo', JSON.stringify(this.todo));
+    }
+    if (this.id) {
+      localStorage.setItem('id', this.id);
+    }
   }
-}
-remove(t:any){
 
-// console.log
-// ('index: ', t);
-this.todo.splice(this.todo.findIndex((a: { id: any; }) => a.id === t) , 1)
-// this.todo.splice(t,1)
-this.save()
-}
+  complete(id: any) {
+    var index = this.todo.findIndex((a: { id: any }) => a.id === id);
+    this.status = this.todo[index].status == 0 ? 1 : 0;
+    this.todo[index].status = this.status;
+    this.save();
+  }
 
-  constructor() { 
-// this.save()
-    this.get()
-    // alert('hi')
-    // console.log(this.id);
+  update(id: any, task: any, status: any, index: any) {
+    task = task.trim();
+    if (task.length > 0) {
+      var data = this.todo;
+      data[index] = { id, task, status };
+      this.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  add(task: any) {
+    task = task.trim();
+    if (task.length > 0) {
+      var id = this.id++;
+      this.status = 0;
+      var data = this.todo;
+      this.store.dispatch(
+        new AddTodo([{
+          id,
+          task,
+          status: 0
+        }])
+      );
+      data.push({ id, task, status: 0 });
+      this.save();
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  get() {
+    if (this.todo) {
+      // this.todo = JSON.parse(localStorage.getItem('todo') || '[]');
+    }
+    if (this.id) {
+      this.id = localStorage.getItem('id') || '';
+    }
+  }
+
+  remove(t: any) {
+    this.store.dispatch(
+      new DeleteTodo({
+        t,
+    
+      })
+    );
+    this.todo.splice(
+      this.todo.findIndex((a: { id: any }) => a.id === t),
+      1
+    );
+    this.save();
   }
 }
